@@ -1,16 +1,14 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useWithAuth from "./useWithAuth"
-import { MyContext } from "../App";
 
 const UserComponent = (props) => {
     const [username, setUsername] = useState("")
-    const {name} = useContext(MyContext);
 
     useEffect(()=>{
-        setUsername(name);
-    }, [])
+        setUsername(props.userTypeData.name);
+    }, [props.userTypeData.name])
   return (
     <div>
         <h1>{username}</h1>   
