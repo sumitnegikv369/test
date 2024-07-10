@@ -7,7 +7,7 @@ const UserComponent = (props) => {
     const [username, setUsername] = useState("")
 
     useEffect(()=>{
-        setUsername(props.userTypeData.name);
+        setUsername(props.userTypeData.name || '-');
     }, [props.userTypeData.name])
   return (
     <div>

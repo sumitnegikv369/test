@@ -40,15 +40,16 @@ describe("UserComponent", ()=>{
         
         render(
           <MyContext.Provider value={contextValue}>
-            <UserComp age="29" />
+            <UserComp age="25" />
           </MyContext.Provider>
         );
         const headingElement = screen.getByText(/Sumit/i);
-        const ageElement = screen.getByText(/29/i);
+        const ageElement = screen.getByText(/25/i);
         
         expect(headingElement).toBeInTheDocument();
         expect(ageElement).toBeInTheDocument();
       });
+      
     it('should updates username when context value changes', () => {
         const initialContextValue = { name: 'Sumit' };
         const updatedContextValue = { name: 'Saurav' };
@@ -67,4 +68,34 @@ describe("UserComponent", ()=>{
         
         expect(updatedHeadingElement).toBeInTheDocument();
       });
+
+
+  it('changes username on button click', () => {
+    const contextValue = { name: 'Sumit' };
+
+    render(
+      <MyContext.Provider value={contextValue}>
+        <UserComp age="25" />
+      </MyContext.Provider>
+    );
+
+    const buttonElement = screen.getByText(/Change Name/i);
+    fireEvent.click(buttonElement);
+
+    const newHeadingElement = screen.getByText(/kavi/i);
+    expect(newHeadingElement).toBeInTheDocument();
+  });
+
+  it('handles null context value gracefully', () => {
+    const contextValue = { name: null };
+
+    render(
+      <MyContext.Provider value={contextValue}>
+        <UserComp age="25" />
+      </MyContext.Provider>
+    );
+
+    const headingElement = screen.getByText('-');
+    expect(headingElement).toBeInTheDocument();
+  });
 })
